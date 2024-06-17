@@ -1,0 +1,32 @@
+
+
+ div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#root{
+  background-color: #666;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+@media (max-width: 1024px) {
+  #root{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

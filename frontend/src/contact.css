@@ -1,0 +1,346 @@
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/mail.css');
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/website.css');
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/menu-cake.css');
+.card {
+  overflow: auto;
+  height: 100vh;
+  width: 60%;
+  background: rgb(28, 40, 51);
+  border-radius: 12px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.123);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transition-duration: .5s;
+}
+
+.profileImage {
+  background: linear-gradient(to right,rgb(54, 54, 54),rgb(32, 32, 32));
+  margin-top: 2rem;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.329);
+  overflow: hidden; 
+}
+
+.phoneIcon {
+  margin-left: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 100%;
+  border: none;
+  background-color: #30C04F;
+}
+
+.phoneIcon:hover {
+  background-color: #2bac47;
+}
+
+.contact-header{
+  width: 80%;
+  display: flex;
+  justify-content:center;
+  align-items: flex-start;
+}
+
+.profile-name {
+  margin-top: 15%;
+  font-size: 1.4em;
+  padding: 10px;
+  color: #eee;
+  font-weight: 700;
+  transition: all 0.25s ease-out;
+}
+
+.text-box {
+  width:100%;
+  height: 2rem;
+  padding: 3%;
+  border-bottom: 1px solid  #4c4a4a;;
+  padding: 10px;
+  color: #eee;
+  cursor: pointer;
+  display: flex;
+  flex-direction:  row;
+  justify-content: space-between;
+}
+
+.button-back {
+  visibility: hidden;
+  display: block;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  overflow: hidden;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+}
+
+.button-back :hover{
+  transform:scale(1.2);
+}
+
+.contact-item {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+
+
+.text-box:hover {
+  transform: translateY(-3px);
+}
+
+.text-box-label {
+  width: 100%;
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+  margin-right: auto;
+  color: #aaa;
+  overflow-wrap: break-word;
+}
+
+.phone-numbers{
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-number {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.contact-info{
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+  margin-bottom: 5% ;
+}
+
+.adressIcon{
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  transform: rotate(45deg);
+  border-radius: 50% 50% 0 50%;
+  background: #0000;
+  background-image: radial-gradient(circle 11.2px at 50% 50%,#0000 94%, #ff4747);
+}
+
+.metadata{
+  margin-top: 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.full-Name{
+  display:  flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.gg-mail{
+  color: #e6b102;
+  height: 1.4rem;
+  width: 2rem;
+}
+.gg-mail::after{
+  color: #e6b102;
+  height: 2rem;
+  width: 1.5rem;
+}
+
+.gg-website{
+  /* margin-left: 0.5rem; */
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  height: 1.5rem;
+  width: 2rem;
+  color: rgb(215, 224, 215);
+}
+.gg-website::after{
+  color: rgb(121, 119, 123);
+  height: 0.6rem;
+  width: 1rem;
+}
+
+.gg-menu-cake{
+  color: palevioletred;
+  margin: 0.5rem;
+}
+
+.text-notes{
+  padding: 1rem;
+  width: 100%;
+  height: 7rem;
+  border-radius: 10px;
+  border:  1px solid  #f1eeee;
+  background-size: 100% 30px;
+  background-color: rgb(27, 34, 41);
+  margin-bottom: 5%;
+  color: #eee;
+  color: orange;
+  overflow:auto;
+}
+
+
+.notes-label{
+  margin-right: auto;
+  margin-left: 1rem; 
+  margin-bottom: 0.3rem;
+  color: #aaa;
+  
+}
+
+.text__pop-up{
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  width: 23ch; /* Максимален брой символи на колона */
+  column-gap: 0;
+}
+
+
+
+
+.profileImage{
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+
+/* Edit button */
+.edit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 2px;
+  height: 40px;
+  width: 85px;
+  border: none;
+  background: #6669653d;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.lable-back {
+  line-height: 22px;
+  font-size: 19px;
+  color: #cab9b9;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+}
+
+.edit-btn:hover {
+  background: #d8cbdf62;
+}
+
+.navBar{
+  margin-top: 3%;
+  width: 100%;
+  display:  flex;
+  justify-content: space-around;
+}
+
+
+.button-box {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.button-elem {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 17px 18px 0 18px;
+  transform: rotate(180deg);
+  fill: #f0eeef;
+}
+
+.button-elem :hover .button-box,
+.button-elem :focus .button-box {
+  transition: 0.4s;
+  transform: translateX(-56px);
+}
+
+
+
+@media (max-width: 1083px) {
+  .contact-header{
+    width: 80%;
+  }
+  .contact-info{
+    width: 65%;
+  }
+}
+
+@media (max-width: 925px) {
+  .contact-header{
+    width: 100%;
+  }
+  .contact-info{
+    width: 75%;
+  }
+}
+
+@media (max-width: 820px) {
+  .button-back{
+    visibility:visible;
+  }
+}
+
+
+@media (max-width: 680px) {
+  .card{
+    width: 80%;
+  }
+  .contact-header{
+    width: 100%;
+  }
+  .contact-info{
+    width: 80%;
+  }
+}
+
+@media (max-width: 475px) {
+  .card{
+    width: 100%;
+  }
+  .contact-header{
+    width: 100%;
+  }
+  .contact-info{
+    width: 80%;
+  }
+}
+
+@media (max-width: 320px) {
+  .card{
+    width: 100%;
+  }
+  .contact-header{
+    width: 100%;
+  }
+  .contact-info{
+    width: 90%;
+  }
+}
