@@ -3,10 +3,17 @@ import { Request, Response } from 'express';
 const app = express()
 const mongoose = require('mongoose')
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 app.use(bodyParser.json());
 
+// !!!!!!!!!!!!!!!!!!!!!!!!
+app.use(cors({
+    origin: 'http://localhost:5173',
+}))
+
 app.use('/contacts', require('./routes/api/contactRoutes'))
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

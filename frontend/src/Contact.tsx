@@ -32,6 +32,18 @@ async function fetchContacts(): Promise<Contact[]> {
 
 console.log(fetchContacts());
 
+// try {
+//   const response = await fetch('http://localhost:3000/contacts');
+//   if (!response.ok) {
+//     throw new Error(`Error fetching contacts: ${response.statusText}`);
+//   }
+//   const data = await response.json();
+//   console.log('Fetched contacts:', data);
+// } catch (error) {
+//   console.error('Error:', error);
+// }
+
+
 const contact : Contact = {
     id: "123",
     name: "Ivan",
@@ -158,7 +170,7 @@ function ContactDetails(contact) {
       <div className="contact-info">
         <div className='full-Name'>
           <span className='text-box-label' text-box>Name </span>
-          <div className="text-box">{contact.name} {contact.surname} </div>
+          <div className="text-box">{contact?.name} {contact?.surname} </div>
         </div>
           <PhoneNumbers/>
           <div className='metadata'>

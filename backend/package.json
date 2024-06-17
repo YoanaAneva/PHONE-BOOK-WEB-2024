@@ -19,6 +19,7 @@
     "typescipt": "^1.0.0"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "joi": "^17.13.1",
     "mongodb": "^6.6.1",
