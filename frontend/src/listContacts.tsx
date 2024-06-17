@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './listContacts.css'
+import {Contact} from './Contact';
 
-interface Contact {
-  id: string;
-  name: string;
-  surname: string;
-  picture: string; 
-  user_username: string;
-  phone:string;
-}
+
 
 const contacts = [
   { id: "1", name: "John", surname: "Doe", picture: "resource/pic0.png", user_username: "Friend", phone: "123-456-7890" },
@@ -23,6 +17,16 @@ const contacts = [
   { id: "10", name: "Emma", surname: "Lee", picture: "resource/pic10.jpg", user_username: "Neighbor", phone: "012-345-6789" },
   { id: "11", name: "Liam", surname: "Johnson", picture: "resource/pic0.png", user_username: "Friend", phone: "123-456-7890" }
 ]
+
+
+// async function fetchContacts(): Promise<Contact[]> {
+//   const response = await fetch('https://api.example.com/contacts');
+//   if (!response.ok) {
+//     throw new Error(`Error fetching contacts: ${response.statusText}`);
+//   }
+//   const contacts = await response.json();
+//   return contacts as Contact[]; 
+// }
 
 function LastContactsList() {
   const LastContacts = contacts.reverse().slice(3, 7);
@@ -77,8 +81,9 @@ function SettingsButton() {
 }
 
 
+
 function ContactBox(props) {
-  return  <li key={props.contact.id} className='list-box'>
+  return  <li key={props.contact.id} className='list-box' >
             <img className='contact-list-picture' src={props.contact.picture} alt={`${props.contact.name} ${props.contact.surname}`} />
             <div className='contact-text'>
             <div className='name-contact'> {props.contact.name}  {props.contact.surname} </div>

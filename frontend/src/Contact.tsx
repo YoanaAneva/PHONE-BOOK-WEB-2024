@@ -4,21 +4,33 @@ import { useRef } from 'react';
 import './contact.css'
 
 
-interface Contact {
+
+export interface Contact {
   id: string;
   name: string;
-  surname: string;
+  surname?: string;
   picture?: string;
   phoneNumbers: { type: string; number: string }[];
-  metadata: {
+  metadata?: {
     email: string;
     address: string;
     website: string;
     birthdate: string;
-    notes: string;
+    notes: string | undefined;
   };
   user_username: string;
 }
+
+async function fetchContacts(): Promise<Contact[]> {
+  const response = await fetch('http://localhost:3000/contacts');
+  if (!response.ok) {
+    throw new Error(`Error fetching contacts: ${response.statusText}`);
+  }
+  const data = await response.json();
+  return data as Contact[]; 
+}
+
+console.log(fetchContacts());
 
 const contact : Contact = {
     id: "123",
@@ -73,7 +85,7 @@ function PosibleLongerText(props: { maxChars: number; text: string; }){
 
 
   function truncateText(text: string, maxLength: number) {
-    if (text.length > maxLength)
+    if (text && text.length > maxLength)
       return text.slice(0, maxLength) + '...';
     return text;
   }
@@ -99,7 +111,7 @@ function PosibleLongerText(props: { maxChars: number; text: string; }){
 }
 
 
-function NavBar(){
+function NavBar(contact){
   return  <div className='navBar'>
             <button className="button-back">
               <div className="button-box">
@@ -129,7 +141,7 @@ function NavBar(){
           </div>
 }
 
-function ContactHeader(){
+function ContactHeader(contact){
     return  <div className='contact-header'>
       <div className="profile-name">{contact.user_username}</div>
       <div className="profileImage">
@@ -138,7 +150,7 @@ function ContactHeader(){
     </div>
 }
 
-function ContactDetails() {
+function ContactDetails(contact) {
   return (
     <div className="card">
       <NavBar/>
@@ -151,15 +163,15 @@ function ContactDetails() {
           <PhoneNumbers/>
           <div className='metadata'>
             <label className="notes-label">Notes</label>
-            <div className="text-notes">{contact.metadata.notes}</div>
+            <div className="text-notes">{contact?.metadata?.notes}</div>
             <span className='text-box-label' text-box>Email </span>
-            <div className="text-box"><PosibleLongerText text={contact.metadata.email} maxChars= {25} /> <i className="gg-mail"></i></div>
+            <div className="text-box"><PosibleLongerText text={contact?.metadata?.email} maxChars= {25} /> <i className="gg-mail"></i></div>
             <span className='text-box-label' text-box>Adress </span>
-            <div className="text-box"><PosibleLongerText text={contact.metadata.address} maxChars={25}/> <i className='adressIcon'></i></div>
+            <div className="text-box"><PosibleLongerText text={contact?.metadata?.address} maxChars={25}/> <i className='adressIcon'></i></div>
             <span className='text-box-label' text-box>Website </span>
-            <div className="text-box"><PosibleLongerText text={contact.metadata.website} maxChars={25}/> <i className="gg-website"></i></div>
+            <div className="text-box"><PosibleLongerText text={contact?.metadata?.website} maxChars={25}/> <i className="gg-website"></i></div>
             <span className='text-box-label' text-box>Birth date </span>
-            <div className="text-box">{contact.metadata.birthdate} <i className="gg-menu-cake"></i></div>
+            <div className="text-box">{contact?.metadata?.birthdate} <i className="gg-menu-cake"></i></div>
           </div>
       </div>
     </div>
@@ -168,5 +180,4 @@ function ContactDetails() {
 };
 
 export default ContactDetails;
-
 
