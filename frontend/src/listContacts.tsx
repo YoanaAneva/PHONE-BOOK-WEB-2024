@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './listContacts.css'
 import {Contact} from './Contact';
-
-
+import { useNavigate } from 'react-router-dom';
 
 const contacts = [
   { id: "1", name: "John", surname: "Doe", picture: "resource/pic0.png", user_username: "Friend", phone: "123-456-7890" },
@@ -18,15 +18,15 @@ const contacts = [
   { id: "11", name: "Liam", surname: "Johnson", picture: "resource/pic0.png", user_username: "Friend", phone: "123-456-7890" }
 ]
 
+async function fetchContacts(): Promise<Contact[]> {
+  const response = await fetch('http://localhost:3000/contacts');
+  if (!response.ok) {
+    throw new Error(`Error fetching contacts: ${response.statusText}`);
+  }
+  const data = await response.json();
+  return data as Contact[]; 
+}
 
-// async function fetchContacts(): Promise<Contact[]> {
-//   const response = await fetch('https://api.example.com/contacts');
-//   if (!response.ok) {
-//     throw new Error(`Error fetching contacts: ${response.statusText}`);
-//   }
-//   const contacts = await response.json();
-//   return contacts as Contact[]; 
-// }
 
 function LastContactsList() {
   const LastContacts = contacts.reverse().slice(3, 7);
@@ -80,20 +80,39 @@ function SettingsButton() {
   );
 }
 
-
-
 function ContactBox(props) {
-  return  <li key={props.contact.id} className='list-box' >
+  const navigate = useNavigate();
+
+  const handleContactClick = (id) => {
+    navigate(`/contact-details/${id}`);
+  }
+
+  return  <li key={props.contact._id} className='list-box' onClick={() => handleContactClick(props.contact._id)}>
             <img className='contact-list-picture' src={props.contact.picture} alt={`${props.contact.name} ${props.contact.surname}`} />
             <div className='contact-text'>
-            <div className='name-contact'> {props.contact.name}  {props.contact.surname} </div>
-            <div className='phone-number'> {props.contact.phone} </div>
+              <div className='name-contact'> {props.contact.name}  {props.contact.surname} </div>
+              <div className='phone-number'> {props.contact.phone} </div>
             </div>
             <div> <span className='text-span'> {props.user_username} </span> </div>
           </li>
 }
 
 function ContactList()  {
+  const [contacts, setContacts] = useState<Contact[]>([]);
+
+  useEffect(() => {
+    async function loadContacts() {
+      try {
+        const data = await fetchContacts();
+        setContacts(data);
+      } catch (error) {
+        console.error('Error fetching contacts:', error);
+      }
+    }
+
+    loadContacts();
+  }, []);
+
   return (
     <div className='contact-list-card' >
       <div className='navbar'>
