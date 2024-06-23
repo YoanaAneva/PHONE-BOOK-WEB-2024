@@ -8,7 +8,8 @@ import ContactList from './listContacts';
 function App() {
   return  <Router>
             <Routes>
-            <Route path="/" element={<><ContactList/><ContactDetails/></>} />
+            <Route path="/" element={<ContactList/>} />
+            <Route path="/contact-details/:id" element={<ContactDetails/>} /> 
             </Routes>
           </Router>
 }
