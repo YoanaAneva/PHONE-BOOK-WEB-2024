@@ -1,83 +1,71 @@
-    
 import React, { useState, useEffect } from 'react';
 import { useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import './contact.css'
 
 
-
 export interface Contact {
-  id: string;
+  _id: string;
   name: string;
   surname?: string;
   picture?: string;
   phoneNumbers: { type: string; number: string }[];
   metadata?: {
-    email: string;
-    address: string;
-    website: string;
-    birthdate: string;
-    notes: string | undefined;
+    email?: string;
+    address?: string;
+    website?: string;
+    birthdate?: string;
+    notes?: string;
   };
   user_username: string;
 }
 
-async function fetchContacts(): Promise<Contact[]> {
-  const response = await fetch('http://localhost:3000/contacts');
-  if (!response.ok) {
-    throw new Error(`Error fetching contacts: ${response.statusText}`);
-  }
-  const data = await response.json();
-  return data as Contact[]; 
+
+// const contact : Contact = {
+//     _id: "123",
+//     name: "Ivan",
+//     surname: "Petrov",
+//     picture: "resource/pic2.jpg",
+//     phoneNumbers: [
+//       {
+//         type: "Home",
+//         number: "+1 (555) 234-567-8901"
+//       },
+//       {
+//         type: "Mobile",
+//         number: "+1 (555) 555-3434"
+//       },
+//       {
+//         type: "Work",
+//         number: "+1 (555) 552325-3434"
+//       }
+//     ],
+//     metadata: {
+//       email: "petrov@gmail.com",
+//       address: "Sofia Bulgaria Square 1.",
+//       website: "https://www.facebook.com/profile.php?id=7999876875",
+//       birthdate: "2001-03-21",
+//       notes: "To call ivancho today. Or maybe later. Or maybe not call him ."
+//     },
+//     user_username: "Brother"
+//   };
+
+
+
+async function getContactById(contactId: string): Promise<Contact> {
+    const response = await fetch(`http://localhost:3000/contacts/${contactId}`);
+    if (!response.ok) {
+      throw new Error(`Error fetching contacts: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data as Contact; 
 }
 
-console.log(fetchContacts());
-
-// try {
-//   const response = await fetch('http://localhost:3000/contacts');
-//   if (!response.ok) {
-//     throw new Error(`Error fetching contacts: ${response.statusText}`);
-//   }
-//   const data = await response.json();
-//   console.log('Fetched contacts:', data);
-// } catch (error) {
-//   console.error('Error:', error);
-// }
 
 
-const contact : Contact = {
-    id: "123",
-    name: "Ivan",
-    surname: "Petrov",
-    picture: "resource/pic2.jpg",
-    phoneNumbers: [
-      {
-        type: "Home",
-        number: "+1 (555) 234-567-8901"
-      },
-      {
-        type: "Mobile",
-        number: "+1 (555) 555-3434"
-      },
-      {
-        type: "Work",
-        number: "+1 (555) 552325-3434"
-      }
-    ],
-    metadata: {
-      email: "petrov@gmail.com",
-      address: "Sofia Bulgaria Square 1.",
-      website: "https://www.facebook.com/profile.php?id=7999876875",
-      birthdate: "2001-03-21",
-      notes: "To call ivancho today. Or maybe later. Or maybe not call him ."
-    },
-    user_username: "Brother"
-  };
-
-
-
-function PhoneNumbers() {
+function PhoneNumbers(props) {
     return  <div className="phone-numbers">
-    {contact.phoneNumbers.map((phoneNumber, index) => (
+    {props.contact?.phoneNumbers.map((phoneNumber, index) => (
       <div key={index} className="phone-number">
         <span className='text-box-label' text-box>{phoneNumber.type}</span> 
         <div className="text-box">{phoneNumber.number}
@@ -162,7 +150,23 @@ function ContactHeader(contact){
     </div>
 }
 
-function ContactDetails(contact) {
+function ContactDetails() {
+  const { id } = useParams<{ id: string }>();
+  const [contact, setContact] = useState<Contact>();
+
+  useEffect(() => {
+    async function loadContacts() {
+      try {
+        const data = await getContactById(id!);
+        setContact(data);
+      } catch (error) {
+        console.error('Error fetching contacts:', error);
+      }
+    }
+
+    loadContacts();
+  }, []);
+
   return (
     <div className="card">
       <NavBar/>
@@ -172,16 +176,16 @@ function ContactDetails(contact) {
           <span className='text-box-label' text-box>Name </span>
           <div className="text-box">{contact?.name} {contact?.surname} </div>
         </div>
-          <PhoneNumbers/>
+          <PhoneNumbers contact={contact}/>
           <div className='metadata'>
             <label className="notes-label">Notes</label>
             <div className="text-notes">{contact?.metadata?.notes}</div>
             <span className='text-box-label' text-box>Email </span>
-            <div className="text-box"><PosibleLongerText text={contact?.metadata?.email} maxChars= {25} /> <i className="gg-mail"></i></div>
+            <div className="text-box"><PosibleLongerText text={contact?.metadata?.email!} maxChars= {25} /> <i className="gg-mail"></i></div>
             <span className='text-box-label' text-box>Adress </span>
-            <div className="text-box"><PosibleLongerText text={contact?.metadata?.address} maxChars={25}/> <i className='adressIcon'></i></div>
+            <div className="text-box"><PosibleLongerText text={contact?.metadata?.address!} maxChars={25}/> <i className='adressIcon'></i></div>
             <span className='text-box-label' text-box>Website </span>
-            <div className="text-box"><PosibleLongerText text={contact?.metadata?.website} maxChars={25}/> <i className="gg-website"></i></div>
+            <div className="text-box"><PosibleLongerText text={contact?.metadata?.website!} maxChars={25}/> <i className="gg-website"></i></div>
             <span className='text-box-label' text-box>Birth date </span>
             <div className="text-box">{contact?.metadata?.birthdate} <i className="gg-menu-cake"></i></div>
           </div>
