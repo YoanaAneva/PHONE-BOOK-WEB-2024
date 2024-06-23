@@ -5,12 +5,12 @@ const mongoose = require('mongoose')
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-app.use(bodyParser.json());
-
-// !!!!!!!!!!!!!!!!!!!!!!!!
+// !!!!!!!!!!!!!!!!!!!!!!!
 app.use(cors({
     origin: 'http://localhost:5173',
-}))
+}));
+
+app.use(bodyParser.json());
 
 app.use('/contacts', require('./routes/api/contactRoutes'))
 
