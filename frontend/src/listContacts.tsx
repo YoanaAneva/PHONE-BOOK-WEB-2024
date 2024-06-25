@@ -64,8 +64,14 @@ function Search(){
 }
 
 function AddButton() {
+  const navigate = useNavigate();
+
+  const navigateToCreateContact = () => {
+    navigate('/create-contect')
+  }
+
   return (
-    <button className="add-button">
+    <button className="add-button" onClick={navigateToCreateContact}>
       <span>+</span>
     </button>
   );
