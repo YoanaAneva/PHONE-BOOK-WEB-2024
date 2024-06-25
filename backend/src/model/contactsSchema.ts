@@ -24,7 +24,7 @@ const contactSchema = new mongoose.Schema ({
         website: { type: "string", optional: true },
         birthdate: { type: "date", optional: true },
         notes: { type: "string", optional: true },
-      },
+      }, optional: true,
     },
     user_username: { type: "string", required: true },
 }, { versionKey: false });

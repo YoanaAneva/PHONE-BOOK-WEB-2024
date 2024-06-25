@@ -22,7 +22,7 @@ export const validateContact = (req: Request, res: Response, next: NextFunction)
         surname: Joi.string(),
         picture: Joi.string(),
         phoneNumbers: Joi.array().items(phoneNumberSchema).required(),
-        metadata: metadataSchema.required(),
+        metadata: metadataSchema.optional(),
         user_username: Joi.string().required()
     });
     
