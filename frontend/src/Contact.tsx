@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import './contact.css'
+import { MergeContacts } from './MergeContacts';
 
 
 export interface Contact {
@@ -19,38 +20,6 @@ export interface Contact {
   };
   user_username: string;
 }
-
-
-// const contact : Contact = {
-//     _id: "123",
-//     name: "Ivan",
-//     surname: "Petrov",
-//     picture: "resource/pic2.jpg",
-//     phoneNumbers: [
-//       {
-//         type: "Home",
-//         number: "+1 (555) 234-567-8901"
-//       },
-//       {
-//         type: "Mobile",
-//         number: "+1 (555) 555-3434"
-//       },
-//       {
-//         type: "Work",
-//         number: "+1 (555) 552325-3434"
-//       }
-//     ],
-//     metadata: {
-//       email: "petrov@gmail.com",
-//       address: "Sofia Bulgaria Square 1.",
-//       website: "https://www.facebook.com/profile.php?id=7999876875",
-//       birthdate: "2001-03-21",
-//       notes: "To call ivancho today. Or maybe later. Or maybe not call him ."
-//     },
-//     user_username: "Brother"
-//   };
-
-
 
 async function getContactById(contactId: string): Promise<Contact> {
     const response = await fetch(`http://localhost:3000/contacts/${contactId}`);
@@ -153,6 +122,7 @@ function ContactHeader(contact){
 function ContactDetails() {
   const { id } = useParams<{ id: string }>();
   const [contact, setContact] = useState<Contact>();
+  const [isMergeSelected, setIsMergeSelected] = useState(false);
 
   useEffect(() => {
     async function loadContacts() {
@@ -189,10 +159,11 @@ function ContactDetails() {
             <span className='text-box-label' text-box>Birth date </span>
             <div className="text-box">{contact?.metadata?.birthdate} <i className="gg-menu-cake"></i></div>
           </div>
+          <button className="merge-btn" onClick={() => {setIsMergeSelected(true)}}>Merge Contact with</button>
+          {isMergeSelected && <MergeContacts primaryContact={contact} />}
       </div>
     </div>
   );
-
 };
 
 export default ContactDetails;
