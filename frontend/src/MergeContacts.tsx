@@ -2,15 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Contact } from './Contact';
 import { useNavigate } from "react-router-dom";
 import './MergeContacts.css'
-
-async function fetchContacts(): Promise<Contact[]> {
-    const response = await fetch('http://localhost:3000/contacts');
-    if (!response.ok) {
-      throw new Error(`Error fetching contacts: ${response.statusText}`);
-    }
-    const data = await response.json();
-    return data as Contact[]; 
-}
+import { fetchContacts } from './listContacts'
 
 async function updateContact(contact) {
     const { _id, ...contactData } = contact;

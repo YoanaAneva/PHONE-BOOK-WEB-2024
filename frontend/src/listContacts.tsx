@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import './listContacts.css'
 import {Contact} from './Contact';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +17,7 @@ const contacts = [
   { id: "11", name: "Liam", surname: "Johnson", picture: "resource/pic0.png", user_username: "Friend", phone: "123-456-7890" }
 ]
 
-async function fetchContacts(): Promise<Contact[]> {
+export async function fetchContacts(): Promise<Contact[]> {
   const response = await fetch('http://localhost:3000/contacts');
   if (!response.ok) {
     throw new Error(`Error fetching contacts: ${response.statusText}`);
