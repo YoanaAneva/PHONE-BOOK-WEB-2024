@@ -17,21 +17,6 @@ async function addContact(contact) {
     return data;
 }
 
-function isContactValid(contact) {
-  if (contact.metadata) {
-    if (contact.metadata.email && !isEmailValid(contact.metadata.email)) {
-      return false;
-    }  
-
-    for (let phoneNumber of contact.phoneNumbers) {
-      if (!isPhoneNumberValid(phoneNumber.number)) {
-        return false;
-      }
-    }
-  }
-  return true;  
-}
-
 const removeEmptyFields = (obj: any) => {
   const newObj = Array.isArray(obj) ? [] : {};
   Object.keys(obj).forEach(key => {
@@ -46,6 +31,25 @@ const removeEmptyFields = (obj: any) => {
   });
   return newObj;
 };
+
+function isContactValid(contact) {
+  if (contact.metadata) {
+    if (contact.metadata.email && !isEmailValid(contact.metadata.email)) {
+      return false;
+    }  
+
+    for (let phoneNumber of contact.phoneNumbers) {
+      if (!isPhoneNumberValid(phoneNumber.number)) {
+        return false;
+      }
+    }
+
+    if(!contact.phoneNumbers || contact.phoneNumbers.length === 0) {
+      return false;
+    }
+  }
+  return true;  
+}
 
 
 function isEmailValid(email: string) {
@@ -149,6 +153,7 @@ export function CreateContact() {
           </div>
           <div className="input-section">
             <label>Phone Numbers</label>
+            {isSubmitted && contact.phoneNumbers.length === 0 && <p className="error-msg">Add at least one contact</p>}
             {contact.phoneNumbers.map((phoneNumber, index) => (
               <div key={index} className="phone-number-section">
                 <input className="number-part" type="text" name="number" value={phoneNumber.number} onChange={(e) => handlePhoneNumberChange(index, e)} placeholder="Phone Number" required />
