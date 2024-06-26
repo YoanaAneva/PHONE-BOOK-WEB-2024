@@ -1,4 +1,3 @@
-// src/AuthContext.js
 import React, { createContext, useState, useContext } from 'react';
 
 interface User {
@@ -12,10 +11,8 @@ interface User {
     logout: () => void;
   }
 
-// Create context
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Custom hook to use the AuthContext
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -24,17 +21,14 @@ export const useAuth = () => {
   return context;
 };
 
-// AuthProvider component to provide auth context to children components
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({ id: '1', username: 'gosho40' });
 
   const login = (userData) => {
-    // Set the user data when the user logs in
     setUser(userData);
   };
 
   const logout = () => {
-    // Clear the user data when the user logs out
     setUser({ id: '1', username: 'gosho40' });
   };
 
